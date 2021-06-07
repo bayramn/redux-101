@@ -11,6 +11,8 @@ function ToDo() {
     setToDoDescription("");
     key++;
   };
+
+  const handleRemoveToDo = () => {};
   return (
     <div>
       <input
@@ -22,7 +24,10 @@ function ToDo() {
       <button onClick={handleAddToDo}>+</button>
 
       {todos.map((todo) => (
-        <p key={todo.key}>{todo.description}</p>
+        <div key={todo.key} className="toDo">
+          <p>{todo.description}</p>
+          <div onClick={handleRemoveToDo}>x</div>
+        </div>
       ))}
     </div>
   );

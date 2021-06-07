@@ -4,3 +4,10 @@ export const addToDo = ({ description, id }) => {
     payload: { description, id },
   };
 };
+
+export const removeToDo = (id) => {
+  return {
+    type: "REMOVE",
+    payload: id,
+  };
+};
