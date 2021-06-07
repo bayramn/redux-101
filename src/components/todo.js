@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import { Provider, connect, useSelector, useDispatch } from "react-redux";
 import { addToDo } from "../actions";
+import { removeToDo } from "../actions";
 function ToDo() {
   const [toDoDescription, setToDoDescription] = useState("");
   const todos = useSelector((state) => state.todo);
   const dispatch = useDispatch();
-  let key = 0;
+  const [toDoID, setToDoID] = useState(0);
   const handleAddToDo = () => {
-    dispatch(addToDo({ description: toDoDescription, id: key }));
+    setToDoID(toDoID + 1);
+
+    dispatch(addToDo({ description: toDoDescription, id: toDoID }));
     setToDoDescription("");
-    key++;
   };
 
-  const handleRemoveToDo = () => {};
+  const handleRemoveToDo = (id) => {
+    dispatch(removeToDo(id));
+  };
   return (
     <div>
       <input
@@ -24,9 +28,9 @@ function ToDo() {
       <button onClick={handleAddToDo}>+</button>
 
       {todos.map((todo) => (
-        <div key={todo.key} className="toDo">
+        <div key={todo.id} className="toDo">
           <p>{todo.description}</p>
-          <div onClick={handleRemoveToDo}>x</div>
+          <div onClick={() => handleRemoveToDo(todo.id)}>x</div>
         </div>
       ))}
     </div>
